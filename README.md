@@ -61,6 +61,43 @@ To avoid re-encoding, keep **Settings → Live recording preset** on **Original 
 
 Chaturbate stream extraction uses IPv4 by default to avoid unreachable IPv6 routes in containers. The **Use IPv4 for stream extraction** setting can be disabled on networks requiring IPv6. It applies to yt-dlp's metadata and playlist requests; FFmpeg makes its own connections while capturing. If errors persist, check connectivity from the Open EasyX container and the recording error in Activity.
 
+## Running on Windows (without Docker)
+
+Open EasyX can be run natively on Windows 10/11 without using Docker.
+
+**Prerequisites:**
+- [Node.js](https://nodejs.org/) (version 22.5 or newer)
+- [Git](https://git-scm.com/)
+- [FFmpeg](https://ffmpeg.org/download.html) (make sure it's added to your system `PATH`)
+
+**Automatic Start:**
+For convenience, you can run Open EasyX using the provided helper scripts. These scripts will automatically pull the latest updates from the repository, install dependencies, build the web application, and start the server.
+- Double-click `start.bat` (Batch script) or run it from the Command Prompt.
+- Alternatively, right-click `start.ps1` and select "Run with PowerShell".
+
+**Manual Start:**
+If you prefer to start it manually from the command line:
+
+```cmd
+git clone https://github.com/raccommode/OpenEasyX.git
+cd OpenEasyX
+npm install
+npm run build
+
+:: Create necessary directories
+mkdir data media plugins-external
+
+:: Set environment variables
+set EASYX_DATA_DIR=data
+set EASYX_MEDIA_DIR=media
+set EASYX_EXTERNAL_PLUGINS_DIR=plugins-external
+set EASYX_EMBEDDED_SUBTITLE_WORKER=false
+
+:: Start the server
+npm start
+```
+Open [http://localhost:3210](http://localhost:3210) in your browser. Note: Embedded subtitle translation features require Python and additional setup, so they are disabled in this environment by default.
+
 ## Local development
 
 Requirements: Node.js 22.5 or newer, Git, FFmpeg, and the downloader helpers used by the plugins you enable.
